@@ -1750,6 +1750,13 @@ void PrintConfigDef::init_fff_params()
     def->mode = comAdvanced;
     def->set_default_value(new ConfigOptionBool(true));
 
+    def = this->add("adjust_layer_height_to_match", coBool);
+    def->label = L("Adjust layer height to match object");
+    def->category = L("Layers and Perimeters");
+    def->tooltip = L("Adjusts the layer height at the top of objects to fit their actual height");
+    def->mode = comAdvanced;
+    def->set_default_value(new ConfigOptionBool(false));
+
     def = this->add("gap_fill_speed", coFloat);
     def->label = L("Gap fill");
     def->category = L("Speed");
