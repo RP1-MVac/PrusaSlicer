@@ -2138,6 +2138,17 @@ msgstr ""
 "Rütteln und Resonanzprobleme zu vermeiden. Auf Null gesetzt, wird das Füllen "
 "kleiner Lücken deaktiviert."
 
+#: src/libslic3r/PrintConfig.cpp:1753
+msgid "Adjust layer height to match object"
+msgstr "Schichthöhe an Objekthöhe anpassen"
+
+#: src/libslic3r/PrintConfig.cpp:1755
+msgid ""
+"Adjusts the layer height at the top of objects to fit their actual height"
+msgstr ""
+"Passt die Schichthöhe an der Oberseite von Objekten an, um deren tatsächliche "
+"Höhe genau darzustellen"
+
 #: src/libslic3r/PrintConfig.cpp:1764
 msgid "Verbose G-code"
 msgstr "Ausführlicher G-Code"

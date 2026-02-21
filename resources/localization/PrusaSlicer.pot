@@ -2575,6 +2575,15 @@ msgid ""
 "filling."
 msgstr ""
 
+#: src/libslic3r/PrintConfig.cpp:1753
+msgid "Adjust layer height to match object"
+msgstr ""
+
+#: src/libslic3r/PrintConfig.cpp:1755
+msgid ""
+"Adjusts the layer height at the top of objects to fit their actual height"
+msgstr ""
+
 #: src/libslic3r/PrintConfig.cpp:1764
 msgid "Verbose G-code"
 msgstr ""
