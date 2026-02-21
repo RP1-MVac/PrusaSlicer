@@ -192,6 +192,13 @@ std::vector<coordf_t> generate_object_layers(
     const SlicingParameters     &slicing_params,
     const std::vector<coordf_t> &layer_height_profile);
 
+// Adjust the last layer height to match the object height if the option is enabled.
+// This ensures that the top of the object aligns exactly with a layer boundary.
+std::vector<coordf_t> adjust_object_layers_to_match_height(
+    std::vector<coordf_t>       object_layers,
+    const SlicingParameters     &slicing_params,
+    bool                        adjust_layer_height_to_match);
+
 // Check whether the layer height profile describes a fixed layer height profile.
 bool check_object_layers_fixed(
     const SlicingParameters     &slicing_params,

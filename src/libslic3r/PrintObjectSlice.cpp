@@ -534,7 +534,12 @@ void PrintObject::slice()
     m_print->throw_if_canceled();
     m_typed_slices = false;
     this->clear_layers();
-    m_layers = new_layers(this, generate_object_layers(m_slicing_params, layer_height_profile));
+    
+    // Generate object layers and adjust the last layer height if configured
+    std::vector<coordf_t> object_layers = generate_object_layers(m_slicing_params, layer_height_profile);
+    object_layers = adjust_object_layers_to_match_height(object_layers, m_slicing_params, m_print->config().adjust_layer_height_to_match.value);
+    
+    m_layers = new_layers(this, object_layers);
     this->slice_volumes();
     m_print->throw_if_canceled();
 #if 0

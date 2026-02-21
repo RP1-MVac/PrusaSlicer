@@ -660,6 +660,50 @@ std::vector<coordf_t> generate_object_layers(
     return out;
 }
 
+// Adjust the last layer height to match the object height if the option is enabled.
+// This ensures that the top of the object aligns exactly with a layer boundary.
+std::vector<coordf_t> adjust_object_layers_to_match_height(
+    std::vector<coordf_t>       object_layers,
+    const SlicingParameters     &slicing_params,
+    bool                        adjust_layer_height_to_match)
+{
+    if (!adjust_layer_height_to_match || object_layers.size() < 2) {
+        return object_layers;
+    }
+
+    // Get the actual object height
+    const coordf_t object_height = slicing_params.object_print_z_height();
+    const coordf_t last_layer_top = object_layers.back();
+    
+    // Check if the last layer already matches the object height (within tolerance)
+    if (std::abs(last_layer_top - object_height) < EPSILON) {
+        return object_layers; // Already aligned
+    }
+
+    // Calculate the adjustment needed
+    const coordf_t adjustment = object_height - last_layer_top;
+    
+    // Verify the adjusted last layer height is within acceptable bounds
+    if (object_layers.size() >= 2) {
+        const coordf_t prev_layer_top = object_layers[object_layers.size() - 2];
+        const coordf_t current_layer_height = last_layer_top - prev_layer_top;
+        const coordf_t adjusted_layer_height = current_layer_height + adjustment;
+        
+        // Only adjust if the new layer height is within acceptable range
+        // Allow up to 20% variance from the standard layer height
+        const coordf_t tolerance_min = slicing_params.min_layer_height;
+        const coordf_t tolerance_max = slicing_params.max_layer_height;
+        
+        if (adjusted_layer_height >= tolerance_min && adjusted_layer_height <= tolerance_max) {
+            // Adjust the last layer
+            object_layers.back() = object_height;
+            return object_layers;
+        }
+    }
+
+    return object_layers;
+}
+
 // Check whether the layer height profile describes a fixed layer height profile.
 bool check_object_layers_fixed(
     const SlicingParameters     &slicing_params,
