@@ -221,7 +221,8 @@ bool Print::invalidate_state_by_config_options(const ConfigOptionResolver & /* n
             || opt_key == "spiral_vase"
             || opt_key == "filament_shrinkage_compensation_xy"
             || opt_key == "filament_shrinkage_compensation_z"
-            || opt_key == "prefer_clockwise_movements") {
+            || opt_key == "prefer_clockwise_movements"
+            || opt_key == "adjust_layer_height_to_match") {
             osteps.emplace_back(posSlice);
         } else if (
                opt_key == "complete_objects"
